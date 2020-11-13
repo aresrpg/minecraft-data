@@ -48,6 +48,12 @@ require('./version_iterator')(function (p, versionString) {
                 names[block.name] = block
               }
             }
+            
+            for (const state of block.states || []) {
+              if (!['enum', 'bool', 'int'].includes(state.type)) {
+                throw new Error('Unknown `state.type`: ' + state.type)
+              }
+            }
           } else {
             console.log('Missing:', i)
           }
